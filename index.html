@@ -10,12 +10,21 @@
             <h2>Confirm that you are ready for chem 163</h2>
         </header>
         <main>
-            <input type="text" name="name" id="username">
-            <input type="email" name="professor email" id="profemail">
-            <button id="submit"></button>
+            <p>
+                Welcome to Ready4Chemistry. We know you are about to head into chemistry 163, and just want to make sure that you are well prepared for the upcoming task. Input your name and your professor's email below and the quiz can begin!
+            </p>
+            <p id="warning">
+                Once begun, the quiz cannot be stopped. If you fail to complete the quiz, you will be unable to complete it at a later date. Do not attempt to stop and restart the quiz.
+            </p>
+            <form>
+                <label>your name</label>
+                <input placeholder="name" type="text" name="name" id="username">
+                <label>professor name</label>
+                <input placeholder="professor email" type="email" name="professor email" id="profemail">
+                <button id="submit">begin!</button>
+            </form>
         </main>
         <footer></footer>
-
     </body>
     <script src="app.js"></script>
 </html>
