@@ -1,6 +1,12 @@
 h1 {
-    color:rgb(166, 255, 0);
+    color: peachpuff;
     font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+
+h2 {
+    text-align: center;
+    color: peachpuff;
 }
 
 #warning {
@@ -22,18 +28,22 @@ form {
 input, button{
     display: block;
     align-items: center;
-    margin-left: 25%;
-    margin-right: 25%;
+    margin: auto;
+    width: 50%;
+    margin-bottom: 10px;
 }
 
-main {
+#main-text {
     background-color: rgba(255, 255, 255, 0.63)
 }
 
 body {
-    background-image: url('bg.jpg');
+    background-image: url('assets/bg.jpg');
     position: fixed;
     background-repeat: no-repeat;
     background-size: cover;
     min-width: 524px;
+    padding-left: 10px;
+    padding-right: 10px;
+    max-width: 1100px;
 }
