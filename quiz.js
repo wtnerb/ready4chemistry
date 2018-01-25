@@ -21,13 +21,44 @@ Question.prototype.ask = function () {
     return el;
 }
 
+function chemify (str){
+    str = str.replace (/=>/g, '\u2192').replace(/z(\d+)/g, '<<$1<<').replace(/\^(\d*[+-])/g, '<<$1<<');
+    let arr = str.split('<<');
+    let newEl = document.createElement('p');
+    for (let i in arr){
+        if (i%2 == 1) {
+            let el = document.createElement('span');
+            el.className = arr[i].match(/[+-]/) ? 'superscript' : 'subscript';
+            el.textContent = arr[i];
+            newEl.append(el);
+        } else {
+            newEl.append(arr[i]);
+        }
+    }
+    // let arr = str.split('<<');
+    // let newEl = document.createElement('p');
+    // for (let i in arr){
+    //     if (i%2 == 1) {
+    //         let el = document.createElement('span');
+    //         el.className = 'superscript';
+    //         el.textContent = arr[i];
+    //         console.log(el);
+    //         newEl.append(el);
+    //     } else {
+    //         newEl.append(arr[i]);
+    //     }
+    // }
+    //TODO superscript
+    return newEl;
+}
+
 function Results () {
     this.time = time;
     this.correct = truth;
 }
 
 function nextQuestion () {
-    let q = qs[iter]
+    let q = qs[iter];
     let el = document.getElementById('question');
     let old = document.getElementsByClassName('temp');
     while (old[0]) old[0].remove();
@@ -70,12 +101,15 @@ function placeHolder (event) {
     if (qs[iter]) nextQuestion();
 }
 
-let qs = []
+let qs = [];
 new Question ('p',  'how old are you?', [19,22,26,32], 26);
 new Question ('p', 'who are you?', ['bob', 'alice','jessica','nobody'],'nobody');
 let result = [];
-let iter = 0
+let iter = 0;
 if (!localStorage.quizStarted) {
-    localStorage.quizStarted = true;
+    //localStorage.quizStarted = true; //TODO uncomment when out of dev environment
     nextQuestion();
-} else alert ('You have already taken the quiz! No retake!')
+} else alert ('You have already taken the quiz! No retake!');
+let example = 'CHz3CHz2OH + 2H^+ =>';
+console.log(chemify(example));
+document.getElementById('ask').appendChild(chemify(example))
