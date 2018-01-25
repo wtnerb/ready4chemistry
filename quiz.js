@@ -2,6 +2,7 @@
 
 function Question (content, options, truth, category){
     this.content = content;
+    randomizeOrder(options);
     this.options = options;
     this.truth = truth;
     this.category = category
@@ -81,6 +82,22 @@ function placeHolder (event) {
     iter++;
     if (qs[iter]) nextQuestion(qs[iter]);
     else displayEnd(result);
+}
+
+function randomizeOrder (arr){
+    for (let i = 0; i < 2 * arr.length; i ++){
+        let pair = [];
+        for (let j = 0; j < 2; j++){
+            let num  = -1
+            do {
+                num = Math.floor(arr.length* Math.random())
+            } while (pair.includes(num))
+            pair.push (num);
+        }
+        let temp = arr[pair[0]];
+        arr[pair[0]] = arr[pair[1]];
+        arr[pair[1]] = temp;
+    }
 }
 
 function formatDuration (seconds) {
