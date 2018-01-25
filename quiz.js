@@ -5,8 +5,7 @@
   el.textContent = localStorage.userName ? localStorage.userName : 'anonymous';
 })();
 
-function Question (tag, content, options, truth){
-    this.tag = tag;
+function Question (content, options, truth){
     this.content = content;
     this.options = options;
     this.truth = truth;
@@ -14,17 +13,16 @@ function Question (tag, content, options, truth){
 }
 
 Question.prototype.ask = function () {
-    let el = document.createElement(this.tag);
-    if (this.tag === 'p') el.textContent = this.content;
-    //else if (this.tag === 'img') el.src = content;//TODO test that this works.
+    let el = chemifyinHTML('p', this.content);
     el.classList.add('temp','question','text');
     return el;
 }
 
-function chemify (str){
+function chemifyinHTML (tag, str){
+    //This is not perfect. It cannot handle a subscript immediately followed by a superscript like sulfate ion
     str = str.replace (/=>/g, '\u2192').replace(/z(\d+)/g, '<<$1<<').replace(/\^(\d*[+-])/g, '<<$1<<');
     let arr = str.split('<<');
-    let newEl = document.createElement('p');
+    let newEl = document.createElement(tag);
     for (let i in arr){
         if (i%2 == 1) {
             let el = document.createElement('span');
@@ -35,20 +33,6 @@ function chemify (str){
             newEl.append(arr[i]);
         }
     }
-    // let arr = str.split('<<');
-    // let newEl = document.createElement('p');
-    // for (let i in arr){
-    //     if (i%2 == 1) {
-    //         let el = document.createElement('span');
-    //         el.className = 'superscript';
-    //         el.textContent = arr[i];
-    //         console.log(el);
-    //         newEl.append(el);
-    //     } else {
-    //         newEl.append(arr[i]);
-    //     }
-    // }
-    //TODO superscript
     return newEl;
 }
 
@@ -76,10 +60,9 @@ Question.prototype.answers = function () {
         el.id = y;
         el.value = y;
         el.classList.add('temp', 'question', 'checkbox');
-        let ans =  document.createElement('label');
+        let ans =  chemifyinHTML('label', x);
         ans.for = y;
         ans.classList.add('temp', 'question', 'answer');
-        ans.textContent = x;
         list.appendChild(el);
         list.appendChild(ans);
     });
@@ -99,17 +82,22 @@ function placeHolder (event) {
     result[iter].correct = result[iter].userAnswer == qs[iter].truth;
     iter++;
     if (qs[iter]) nextQuestion();
+    else {
+        let old = document.getElementsByClassName('temp');
+        while (old[0]) old[0].remove();
+        let el = document.createElement('p');
+        el.textContent = 'Your result is ' + result.filter(x => x.correct).reduce(x => x + 1, 0) + ' correct out of ' + qs.length;
+        document.getElementById('ask').appendChild(el);
+    }
 }
 
 let qs = [];
-new Question ('p',  'how old are you?', [19,22,26,32], 26);
-new Question ('p', 'who are you?', ['bob', 'alice','jessica','nobody'],'nobody');
+new Question ('how old are you?', ['19','22','26','32'], '26');
+new Question ('who are you?', ['bob', 'alice','jessica','nobody'],'nobody');
+new Question ('CHz3CHz2OH is called', ['ethanol', 'everclear', 'poison'], 'ethanol');
 let result = [];
 let iter = 0;
 if (!localStorage.quizStarted) {
     //localStorage.quizStarted = true; //TODO uncomment when out of dev environment
     nextQuestion();
 } else alert ('You have already taken the quiz! No retake!');
-let example = 'CHz3CHz2OH + 2H^+ =>';
-console.log(chemify(example));
-document.getElementById('ask').appendChild(chemify(example))
