@@ -19,12 +19,11 @@ Question.prototype.ask = function () {
 }
 
 function chemifyinHTML (tag, str){
-    //This is not perfect. It cannot handle a subscript immediately followed by a superscript like sulfate ion
     str = str.replace (/=>/g, '\u2192').replace(/z(\d+)/g, '<<$1<<').replace(/\^(\d*[+-])/g, '<<$1<<');
     let arr = str.split('<<');
     let newEl = document.createElement(tag);
     for (let i in arr){
-        if (i%2 == 1) {
+    if (arr[i].match(/^\d*[+-]*$/)) {
             let el = document.createElement('span');
             el.className = arr[i].match(/[+-]/) ? 'superscript' : 'subscript';
             el.textContent = arr[i];
@@ -94,7 +93,7 @@ function placeHolder (event) {
 let qs = [];
 new Question ('how old are you?', ['19','22','26','32'], '26');
 new Question ('who are you?', ['bob', 'alice','jessica','nobody'],'nobody');
-new Question ('CHz3CHz2OH is called', ['ethanol', 'everclear', 'poison'], 'ethanol');
+new Question ('SOz4^2- is called', ['sulfate', 'everclear', 'poison'], 'sulfate');
 let result = [];
 let iter = 0;
 if (!localStorage.quizStarted) {
