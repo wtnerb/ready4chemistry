@@ -5,7 +5,7 @@ function Question (content, options, truth, category){
     randomizeOrder(options);
     this.options = options;
     this.truth = truth;
-    this.category = category
+    this.category = category;
     qs.push(this);
 }
 
@@ -15,12 +15,16 @@ Question.prototype.ask = function () {
     return el;
 }
 
+function timer (obj, i) {
+    let initial = result[i - 1] ? result[i - 1].timeStamp : 0;
+    obj.time = obj.timeStamp - initial;
+}
+
 function chemifyInHTML (tag, str){
     //string needs to have 'z' or '^' before sub/superscript.
     //in case of future work, use 'z' for subscript and '^' for superscript
     //superscript must have a sign either '+' or '-', a leading '+' will be trimmed (ie 10^+6)
-    str = str.replace (/=>/g, '\u2192').replace(/z(\d+)/g, '<<$1<<').replace(/\^([+-]*\d*[+-]*)/g, '<<$1<<');
-    let arr = str.split('<<');
+    let arr = str.replace (/=>/g, '\u2192').replace(/z(\d+)/g, '<<><$1<<><').replace(/\^([+-]?\d*[+-]?)/g, '<<><$1<<><').split('<<><');
     let newEl = document.createElement(tag);
     for (let i in arr){
         if (arr[i].match(/^[+-]*\d*[+-]*$/)) {
@@ -33,10 +37,6 @@ function chemifyInHTML (tag, str){
     return newEl;
 }
 
-function Results () {
-    this.time = time;
-    this.correct = truth;
-}
 
 function nextQuestion (q) {
     let el = document.getElementById('question');
@@ -76,7 +76,7 @@ Question.prototype.answers = function () {
 function placeHolder (event) {
     event.preventDefault();
     let i = document.getElementById('answers').ans.value;
-    result.push ({userAnswer: qs[iter].options[i], time: event.timeStamp});
+    result.push ({userAnswer: qs[iter].options[i], timeStamp: event.timeStamp});
     result[iter].correct = result[iter].userAnswer == qs[iter].truth;
     result[iter].category = qs[iter].category;
     iter++;
@@ -129,9 +129,19 @@ function displayEnd (result){
     let old = document.getElementsByClassName('temp');
     while (old[0]) old[0].remove();
     let el = document.createElement('p');
-    el.textContent = 'Your result is ' + result.filter(x => x.correct).reduce(x => x + 1, 0) + ' correct out of ' + qs.length + '. Dont forget that every item on this quiz is fundamental to 163, if you decide to continue your professor will assume you already know and have mastered this material.';
+    let numCorrect = result.filter(x => x.correct).reduce(x => x + 1, 0)
+    result.forEach(timer);
+    el.textContent = 'You got ' + numCorrect + ' correct out of ' + qs.length + '. ' + (numCorrect > 17/20) ? '\nDont forget that every item on this quiz is fundamental to 163, if you decide to continue your professor will assume you already know and have mastered this material.' : '\nYou should think very carefully about coninuing to 163. It is not recommended.';
     document.getElementById('ask').appendChild(el);
-    el = document.createElement('p');
+    displayLearningOpportunities(result);
+    el = document.createElement('p')
+    let t = result.reduce((accum, x) => accum + Math.floor(x.time / 1000), 0)
+    el.textContent = 'it took you ' + formatDuration(t) + ' to complete the quiz.\nIt should take under 20 minutes.';
+    document.getElementById('ask').appendChild(el)
+}
+
+function displayLearningOpportunities (result) {
+    let el = document.createElement('p');
     el.textContent = 'You might want to work on:';
     document.getElementById('ask').appendChild(el);
     el = document.createElement('ul')
@@ -146,10 +156,6 @@ function displayEnd (result){
         el.appendChild(e);
     })
     document.getElementById('ask').appendChild(el);
-    el = document.createElement('p')
-    let t = result.reduce((accum, x) => accum + Math.floor(x.time / 1000), 0)
-    el.textContent = 'it took you ' + formatDuration(t) + ' to complete the quiz. Target time is under 20 minutes -- though it really should only take 10.';
-    document.getElementById('ask').appendChild(el)
 }
 
 let qs = [];
