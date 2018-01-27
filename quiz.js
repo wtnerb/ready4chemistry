@@ -66,14 +66,14 @@ Question.prototype.answers = function () {
     });
     let el = document.createElement('input');
     el.type = 'submit';
-    el.value = 'Save';
+    el.value = 'Submit answer';
     el.classList.add('temp', 'submit');
     list.appendChild(el);
-    document.getElementById('answers').addEventListener('submit', placeHolder);
+    document.getElementById('answers').addEventListener('submit', answered);
     return list;
 }
 
-function placeHolder (event) {
+function answered (event) {
     event.preventDefault();
     let i = document.getElementById('answers').ans.value;
     result.push ({userAnswer: qs[iter].options[i], timeStamp: event.timeStamp});
@@ -123,9 +123,10 @@ function formatDuration (seconds) {
         .map(x => x.num + ' ' + x.name)
         .join(', ')
         .replace(/,( \d+ \w+)$/, ' and$1')
-  }
+}
 
 function displayEnd (result){
+    localStorage.result = JSON.stringify(result);
     let old = document.getElementsByClassName('temp');
     while (old[0]) old[0].remove();
     let el = document.createElement('p');
@@ -163,7 +164,7 @@ let result = [];
 let iter = 0;
 (function (){
     let el = document.getElementById('username');
-    el.textContent = localStorage.userName ? localStorage.userName : 'anonymous';
+    el.textContent += localStorage.userName ? localStorage.userName : 'anonymous';
     new Question ('How many moles are in 1.5g of pure ethanol, CHz3CHz2OH', ['0.015 mol','0.033 mol','31 mol','69 mol'], '31 mol', 'Basic stoichiometry - molar mass');
     new Question ('How many moles of CuO can be produced from 0.450 mol of Cuz2O in the following reaction?\n\t2 Cuz2O(s) + Oz2(g) => 4 CuO(s)', ['0.23 mol', '0.45 mol','0.90 mol','1.8 mol'],'0.90 mol', 'Basic stoichiometry - chemical equations');
     new Question ('Write a balanced net ionic equation for the reaction of Naz2COz3(s) and HCl(aq).', [
@@ -176,7 +177,7 @@ let iter = 0;
     new Question ('Which of the following compounds contains ionic bonds?', ['CaO', 'HF', 'NIz3', 'SiOz2'], 'CaO', 'bond types')
     new Question ('A student weighed 3000. \u00B5g of sulfur in the lab. This is the same mass as', ['3.000 \u00D7 10^-6 g', '3.000 \u00D7 10^-3 kg', '3.000 \u00D7 10^+3 mg', '3.000 \u00D7 10^+6 ng'], '3.000 \u00D7 10^-6 g', 'SI prefixes');
     new Question ('How much heat is transferred per mole of NHz3(g) formed in the reaction shown below?\n\tNz2(g) + 3 Hz2(g) => 2 NHz3(g) \t\t\u0394H\u00B0 = - 92.2 kJ', ['92.2 kJ', '46.1 kJ', '30.7 kJ', '15.4 kJ'], '46.1 kJ', 'Thermochemistry and Stoichiometry');
-    new Question ('The action of some commercial drain cleaners is based on the following reaction:\n\t2NaOH(s) + 2 Al(s) + 6 HzO(l) => 2 NaAl(OH)z4(s) + Hz2(g)\nWhat is the volume of Hz2 gas formed at STP when 4.3 g of Al reacts with excess NaOH?', ['2.4 L', '3.6 L', '5.4 L', '5.9 L'], '3.6 L', 'Gas law stoichiometry');
+    new Question ('The action of some commercial drain cleaners is based on the following reaction:\n\t2NaOH(s) + 2 Al(s) + 6 HzO(l) => 2 NaAl(OH)z4(s) + Hz2(g)\nWhat is the volume of Hz2 gas formed at STP when 4.3 g of Al reacts with excess NaOH?', ['2.4 L', '3.6 L', '5.4 L', '5.9 L'], '5.4 L', 'Gas law stoichiometry');
     new Question ('What volume of 0.72 M KBr solution is needed to provike 10.5 g of KBr?', ['7.5 mL', '15 mL', '63 mL', '120 mL'], '7.5 mL', 'basic stoichiometry');
     new Question ('Which one of the following compounds represents a stong acid in an aqueous solution?', ['HNOz3', 'HF', 'HClOz2', 'Hz2SOz3'], 'HNOz3', 'Identifying acids');
     new Question ('When equal volumes of 0.10 M acetic acid and 0.10 M NaOH are combined what type of reaction takes place?', ['oxidation-reduction', 'single displacement', 'neutralization', 'ion-exchange'], 'neutralization', 'Identifying reaction types');
