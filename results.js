@@ -3,15 +3,16 @@
 const targetTime = 20 * 60;
 const numQuestions = 15;
 let result = JSON.parse(localStorage.result);
+result.forEach(timer);
+const timeSpent = result.reduce((accum, x) => accum + Math.floor(x.time / 1000), 0);
+
 
 
 function results (result){
     let el = document.createElement('p');
     const numCorrect = result.filter(x => x.correct).reduce(x => x + 1, 0);
-    result.forEach(timer);
     el.textContent = 'You got ' + numCorrect + ' correct out of ' + numQuestions;
     document.getElementById('grade').appendChild(el);
-    const timeToComplete = result.reduce((accum, x) => accum + Math.floor(x.time / 1000), 0);
     let summ = document.createElement('h4');
     const score = numCorrect/numQuestions;
     if (score > .87) summ.textContent = 'You are good to go!';
@@ -19,17 +20,17 @@ function results (result){
     else if (score > .60) summ.textContent = 'Talk with your professor before attempting 163. A thorough review of 161 and 162 is in order.';
     else summ.textContent = 'Consider retaking chem 161 and/or 162. Continuing to 163 is not recommended.';
     el = document.createElement('p');
-    el.textContent = 'it took you ' + formatDuration(timeToComplete) + ' to complete the quiz.\nIt should take under ' + targetTime/60 + ' minutes.';
+    el.textContent = 'It took you ' + formatDuration(timeSpent) + ' to complete the quiz.\nThat is' + (timeSpent < targetTime ? ' passing': (' ' + formatDuration(timeSpent - targetTime) + ' longer than it should have taken.'));
     document.getElementById('summary').appendChild(summ);
     document.getElementById('summary').appendChild(el);
-    displayLearningOpportunities(result, timeToComplete);
+    displayLearningOpportunities(result, timeSpent);
 }
 
 function displayLearningOpportunities (result, timeSpent) {
     let el = document.createElement('p');
     el.textContent = 'You might want to work on:';
     document.getElementById('opportunities').appendChild(el);
-    el = document.createElement('ul')
+    el = document.createElement('ul');
     function addLi (str, target) {
         let e = document.createElement('li');
         e.textContent = str;
@@ -38,8 +39,8 @@ function displayLearningOpportunities (result, timeSpent) {
     if (result.filter(x => !x.correct).length == 0 && targetTime < timeSpent) {
         addLi ('Nothing! you are ready for Chem 163!', el);
     }
-    result.filter(x => !x.correct).forEach(x => addLi (x.category, el))
-    if (targetTime >= timeSpent) addLi ('Speed/fluency at solving problems.', el);
+    result.filter(x => !x.correct).forEach(x => addLi (x.category, el));
+    if (targetTime <= timeSpent) addLi ('Speed/fluency at solving problems.', el);
     document.getElementById('opportunities').appendChild(el);
 }
 

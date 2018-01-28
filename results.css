@@ -3,6 +3,7 @@ body {
     background-image: url('assets/fireworks.jpg');
     background-repeat: no-repeat;
     background-size: cover;
+    color: white;
 }
 
 h1 {
