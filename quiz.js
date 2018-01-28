@@ -82,14 +82,15 @@ function answered (event) {
     localStorage.result = JSON.stringify(result);
     iter++;
     if (qs[iter]) nextQuestion(qs[iter]);
-    else displayEnd(result);
+    else window.location.href = 'results.html';
+    ;
 }
 
 function randomizeOrder (arr){
     for (let i = 0; i < 2 * arr.length; i ++){
         let pair = [];
+        let num  = -1
         for (let j = 0; j < 2; j++){
-            let num  = -1
             do {
                 num = Math.floor(arr.length* Math.random())
             } while (pair.includes(num))
@@ -124,40 +125,6 @@ function formatDuration (seconds) {
         .map(x => x.num + ' ' + x.name)
         .join(', ')
         .replace(/,( \d+ \w+)$/, ' and$1')
-}
-
-function displayEnd (result){
-    localStorage.result = JSON.stringify(result);
-    let old = document.getElementsByClassName('temp');
-    while (old[0]) old[0].remove();
-    let el = document.createElement('p');
-    let numCorrect = result.filter(x => x.correct).reduce(x => x + 1, 0)
-    result.forEach(timer);
-    el.textContent = 'You got ' + numCorrect + ' correct out of ' + qs.length + '. ' + (numCorrect > 17/20) ? '\nDont forget that every item on this quiz is fundamental to 163, if you decide to continue your professor will assume you already know and have mastered this material.' : '\nYou should think very carefully about coninuing to 163. It is not recommended.';
-    document.getElementById('ask').appendChild(el);
-    displayLearningOpportunities(result);
-    el = document.createElement('p')
-    let t = result.reduce((accum, x) => accum + Math.floor(x.time / 1000), 0)
-    el.textContent = 'it took you ' + formatDuration(t) + ' to complete the quiz.\nIt should take under 20 minutes.';
-    document.getElementById('ask').appendChild(el)
-}
-
-function displayLearningOpportunities (result) {
-    let el = document.createElement('p');
-    el.textContent = 'You might want to work on:';
-    document.getElementById('ask').appendChild(el);
-    el = document.createElement('ul')
-    if (result.filter(x => !x.correct).length == 0) {
-        let e = document.createElement('li');
-        e.textContent = 'Nothing! You are ready for chem 163!';
-        el.appendChild(e);
-    }
-    result.filter(x => !x.correct).forEach(x => {
-        let e = document.createElement('li');
-        e.textContent = x.category
-        el.appendChild(e);
-    })
-    document.getElementById('ask').appendChild(el);
 }
 
 let qs = [];
