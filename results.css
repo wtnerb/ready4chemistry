@@ -1,0 +1,10 @@
+
+body {
+    background-image: url('assets/fireworks.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+h1 {
+    text-align: center;
+}

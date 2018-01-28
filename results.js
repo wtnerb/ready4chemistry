@@ -73,4 +73,5 @@ function timer (obj, i) {
     obj.time = obj.timeStamp - initial;
 }
 
+document.getElementById('name').textContent = localStorage.userName ? localStorage.userName.toUpperCase() : 'Your';
 results(result);
