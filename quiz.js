@@ -56,7 +56,7 @@ Question.prototype.answers = function () {
         el.value = y;
         el.classList.add('temp', 'question', 'checkbox');
         let ans =  chemifyInHTML('label', x);
-        ans.for = y;
+        ans.setAttribute('for', y);
         ans.classList.add('temp', 'question', 'answer');
         let brk = document.createElement('br')
         brk.className = 'temp';
@@ -79,6 +79,7 @@ function answered (event) {
     result.push ({userAnswer: qs[iter].options[i], timeStamp: event.timeStamp});
     result[iter].correct = result[iter].userAnswer == qs[iter].truth;
     result[iter].category = qs[iter].category;
+    localStorage.result = JSON.stringify(result);
     iter++;
     if (qs[iter]) nextQuestion(qs[iter]);
     else displayEnd(result);
@@ -164,8 +165,8 @@ let result = [];
 let iter = 0;
 (function (){
     let el = document.getElementById('username');
-    el.textContent += localStorage.userName ? localStorage.userName : 'anonymous';
-    new Question ('How many moles are in 1.5g of pure ethanol, CHz3CHz2OH', ['0.015 mol','0.033 mol','31 mol','69 mol'], '31 mol', 'Basic stoichiometry - molar mass');
+    el.textContent += localStorage.userName ? localStorage.userName.toUpperCase() : 'anonymous'.toUpperCase();
+    new Question ('How many moles are in 1.5g of pure ethanol, CHz3CHz2OH?', ['0.015 mol','0.033 mol','31 mol','69 mol'], '31 mol', 'Basic stoichiometry - molar mass');
     new Question ('How many moles of CuO can be produced from 0.450 mol of Cuz2O in the following reaction?\n\t2 Cuz2O(s) + Oz2(g) => 4 CuO(s)', ['0.23 mol', '0.45 mol','0.90 mol','1.8 mol'],'0.90 mol', 'Basic stoichiometry - chemical equations');
     new Question ('Write a balanced net ionic equation for the reaction of Naz2COz3(s) and HCl(aq).', [
         'Naz2COz3(s) + 2 HCl(aq) => 2 NaCl(aq) + Hz2O(l) + COz2(g)',

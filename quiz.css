@@ -42,14 +42,21 @@ main {
     margin: 40px auto;
     padding: 15px;
     padding-top: 3px;
+    margin-top: 10px;
 }
 
 .question.text {
     font-size: 16pt;
+    margin-top: 0px;
+}
+
+.question.checkbox:checked + label{
+    background-color: beige;
+    color: black;
 }
 
 .question.checkbox {
-    margin-top: .6em;
+    display: none;
 }
 
 .text {
@@ -58,5 +65,5 @@ main {
 
 .submit{
     margin-top: 15px;
-    font-size: 30pt;
+    font-size: 16pt;
 }
