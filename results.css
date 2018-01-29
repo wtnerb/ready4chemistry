@@ -1,0 +1,46 @@
+
+body {
+    background-image: url('assets/fireworks.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, 'Geneva', Verdana, sans-serif;
+    text-shadow: black 0 0 10px, black 0 0 3px;
+    margin-top: 0;
+    padding-top:0;
+}
+
+h1, h3 {
+    text-align: center;
+}
+
+a :visited {
+    color: black;
+}
+
+nav {
+    position: fixed;
+    width: 10%;
+    min-width: 60px;
+    margin-left: 90%;
+    z-index: 1;
+    padding-left: 0;
+    background-color: turquoise;
+    height: 100%;
+    text-shadow: black 0 0 0;
+    color: black;
+    padding-top:30px;
+    text-align: center;
+}
+
+a{
+    display: block;
+    color: black;
+    padding-top: 10px;
+    background-color: aquamarine;
+    margin-top: 8px;
+}
+
+main {
+    padding-right: 10%
+}
