@@ -7,7 +7,8 @@ function onClick(event) {
     else {
         localStorage.userName = event.target.name.value;
         localStorage.profemail = event.target.profemail.value;
-        window.location.href ='file:///Users/brentw/Codefellows/chem-163-quiz/ready4chemistry/quiz.html';
+        alert ('Make sure you have your calculator and a period table available.')
+        window.location.href ='/quiz.html';
     }
 }
 f.addEventListener ('submit', onClick);
