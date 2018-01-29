@@ -66,6 +66,7 @@ nav {
     color: black;
     padding-top:30px;
     text-align: center;
+    font-family: 'Segoe UI', Tahoma, 'Geneva', Verdana, sans-serif;
 }
 
 a{
@@ -76,6 +77,33 @@ a{
     margin-top: 8px;
 }
 
-main {
+main, footer {
     padding-right: 10%
+}
+
+div.bios {
+    display: block;
+}
+
+.bio {
+    font-family: cursive;
+    width: 30%;
+    min-width: 100px;
+    max-width: 400px;
+    float: left;
+    margin: 10%;
+}
+
+p.bio {
+    width: 100%;
+    text-align: center;
+    margin: 0;
+    display: block;
+}
+
+img.bio {
+    padding-right: 10%;
+    width: 80%;
+    margin: 0;
+    display: block;
 }
