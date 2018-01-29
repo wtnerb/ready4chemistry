@@ -25,6 +25,7 @@ main {
 #username{
     font-size: 16pt;
     text-align: right;
+    margin-right: 15%;
 }
 
 .superscript, .subscript {
@@ -50,7 +51,6 @@ main {
 .question.text {
     font-size: 16pt;
     margin-top: 0px;
-    font-weight: bold;
 }
 
 .question.checkbox:checked + label{
