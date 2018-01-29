@@ -8,7 +8,7 @@ function onClick(event) {
         localStorage.userName = event.target.name.value;
         localStorage.profemail = event.target.profemail.value;
         alert ('Make sure you have a calculator and a periodic table.')
-        window.location.href ='quiz.html';
+        window.location.href = 'quiz.html';
     }
 }
 f.addEventListener ('submit', onClick);
