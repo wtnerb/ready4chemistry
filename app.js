@@ -7,8 +7,8 @@ function onClick(event) {
     else {
         localStorage.userName = event.target.name.value;
         localStorage.profemail = event.target.profemail.value;
-        alert ('Make sure you have your calculator and a period table available.')
-        window.location.href ='http://wtnerb.github.io/ready4chemistry/quiz.html';
+        alert ('Make sure you have a calculator and a periodic table.')
+        window.location.href = 'quiz.html';
     }
 }
 f.addEventListener ('submit', onClick);

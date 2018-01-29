@@ -26,10 +26,10 @@ function chemifyInHTML (tag, str){
     //in case this is refactored later, use 'z' for subscript and '^' for superscript
     //superscript must have a sign either '+' or '-', a leading '+' will be trimmed (ie 10^+6)
     let mark = '<<><~`;%@';
-    let arr = str.replace (/=>/g, '\u2192').replace(/z(\d+)/g, mark + '$1' + mark ).replace(/\^([+-]?\d*[+-]?)/g, mark + '$1' + mark ).replace(/\n/, mark + '\n' + mark).split(mark )
+    let arr = str.replace (/=>/g, '\u2192').replace(/z(\d+)/g, mark + '$1' + mark).replace(/\^([+-]?\d*[+-]?)/g, mark + '$1' + mark).replace(/\n/, mark + '\n' + mark).split(mark);
     let newEl = document.createElement(tag);
     for (let i in arr){
-        if (arr[i].match(/^[+-]*\d*[+-]*$/)) {
+        if (arr[i].match(/^[+-]?\d*[+-]?$/)) {
             let el = document.createElement('span');
             el.className = arr[i].match(/[+-]/) ? 'superscript' : 'subscript';
             el.textContent = arr[i].replace(/^\+(\d+)/, '$1');
@@ -39,7 +39,6 @@ function chemifyInHTML (tag, str){
     }
     return newEl;
 }
-
 
 function nextQuestion (q) {
     let el = document.getElementById('question');
@@ -61,15 +60,12 @@ Question.prototype.answers = function () {
         let ans =  chemifyInHTML('label', x);
         ans.setAttribute('for', y);
         ans.classList.add('temp', 'question', 'answer');
-        let brk = document.createElement('br')
-        brk.className = 'temp';
         list.appendChild(el);
         list.appendChild(ans);
-        list.appendChild(brk);
     });
     let el = document.createElement('input');
     el.type = 'submit';
-    el.value = 'Submit answer';
+    el.value = 'Submit Answer';
     el.classList.add('temp', 'submit');
     list.appendChild(el);
     document.getElementById('answers').addEventListener('submit', answered);
@@ -132,7 +128,7 @@ let iter = 0;
     new Question ('When 0.10 M acetic acid is combined with 0.10 M NaOH, what are the products of the resultant reaction?', ['acetic hydroxide + Na^+', 'water + sodium acetate', 'sodium acetate + OH^-'], 'water + sodium acetate', 'Acid-base reactions');
     new Question ('What is the initial concentration of OH^- in a reaction mixture when 30. mL 0.50 M NaOH is added to 10. mL of 0.20 M NaF?', ['0.20 M', '0.50 M', '0.38 M', '0.40 M'], '0.38 M', 'Units');
     if (!localStorage.quizStarted) {
-        localStorage.quizStarted = true; //TODO uncomment when out of dev environment
+        localStorage.quizStarted = true;
         nextQuestion(qs[0]);
     } else {alert ('You have already taken the quiz! No retakes!')};
 })();

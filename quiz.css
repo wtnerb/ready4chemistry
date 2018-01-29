@@ -8,11 +8,13 @@ body {
     padding-right: 10px;
     max-width: 1100px;
     color: rgb(231, 154, 255);
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', Verdana, sans-serif; 
 }
 
 main {
     background-color: rgba(0, 0, 0, 0.637);
     padding: 10px;
+    font-size: 16pt;
 }
 
 #warning {
@@ -22,11 +24,12 @@ main {
 }
 
 #username{
-    font-size: 20pt;
+    text-align: right;
+    margin-right: 15%;
 }
 
 .superscript, .subscript {
-    font-size: .83em;
+    font-size: .75em;
     position: relative;
 }
 
@@ -39,16 +42,10 @@ main {
 }
 
 #ask{
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', Verdana, sans-serif; 
     margin: 40px auto;
     padding: 15px;
     padding-top: 3px;
     margin-top: 10px;
-}
-
-.question.text {
-    font-size: 16pt;
-    margin-top: 0px;
 }
 
 .question.checkbox:checked + label{
@@ -56,15 +53,19 @@ main {
     color: black;
 }
 
+label {
+    cursor: pointer;
+    display: block;
+    width: fit-content;
+    padding-bottom: 1px;
+    padding-top: 1px;
+    font-size: 14pt;
+}
+
 .question.checkbox {
     display: none;
 }
 
-.text {
-    font-weight: bold;
-}
-
 .submit{
     margin-top: 15px;
-    font-size: 16pt;
 }
