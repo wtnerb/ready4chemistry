@@ -1,12 +1,8 @@
-h1 {
-    color: peachpuff;
+h1, h2 {
+    color: #2bdb33;
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
-}
-
-h2 {
-    text-align: center;
-    color: peachpuff;
+    text-shadow: blue 0 0 3px;
 }
 
 #warning {
@@ -19,22 +15,38 @@ form {
     font-family: 'Cambria', 'Cochin', Georgia, Times, 'Times New Roman', serif;
     background-color: rgba(188, 143, 143, 0.582);
     color: white;
-    margin-left: 38%;
-    margin-right: 38%;
+    margin-left: 30%;
+    margin-right: 30%;
+    width: 40%;
     text-align: center;
+    padding-top: 1.2em;
+    padding-bottom: 1.2em;
+    font-size: 20pt;
 }
 
+p {
+    padding: .5em;
+}
 
 input, button{
     display: block;
     align-items: center;
     margin: auto;
-    width: 50%;
+    width: 250px;
+    height: 50px;
     margin-bottom: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 20pt;
+}
+
+input{
+    font-size: 16pt;
 }
 
 #main-text {
     background-color: rgba(255, 255, 255, 0.63);
+    font-size: 16pt;
 }
 
 body {
@@ -46,4 +58,95 @@ body {
     padding-left: 10px;
     padding-right: 10px;
     max-width: 1100px;
+    margin-top: 0px;
+}
+
+a :visited {
+    color: black;
+}
+
+nav {
+    position: fixed;
+    width: 10%;
+    min-width: 60px;
+    margin-left: 90%;
+    z-index: 1;
+    padding-left: 0;
+    background-color: turquoise;
+    height: 100%;
+    text-shadow: black 0 0 0;
+    color: black;
+    padding-top:30px;
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, 'Geneva', Verdana, sans-serif;
+}
+
+a{
+    display: block;
+    color: black;
+    padding-top: 10px;
+    background-color: aquamarine;
+    margin-top: 8px;
+}
+
+main {
+    padding-right: 10%;
+    padding-bottom: 80px;
+}
+
+header {
+    padding-right: 10%;
+}
+
+footer{
+    padding-right: 10%;
+    padding-left: 10%;
+    position: fixed;
+    bottom: 5px;
+    background: rgb(68, 68, 68);
+    color: rgb(177, 213, 245);
+}
+
+div.bios {
+    display: block;
+    margin-bottom: 100px;
+}
+
+.bio {
+    font-family: cursive;
+    width: 40%;
+    min-width: 100px;
+    max-width: 400px;
+    float: left;
+    margin: 5%;
+    margin-top: 2%;
+}
+
+p.bio, p.description {
+    width: 100%;
+    text-align: center;
+    margin: 0;
+    display: block;
+    background-color: rgba(85, 252, 252, 0.623);
+    color: rgb(107, 7, 153);
+    margin-top: 1em;
+    margin-bottom: .5em;
+    padding:.5em;
+}
+
+img.bio {
+    padding-right: 25%;
+    padding-left: 25%;
+    width: 50%;
+    margin: 0;
+    display: block;
+}
+
+h3 {
+    padding: .2em;
+    margin: 0;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-align: center;
+    margin-top: 2em;
+    text-shadow: white 0 0 5px;
 }
