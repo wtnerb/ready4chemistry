@@ -14,7 +14,7 @@ body {
 main {
     background-color: rgba(0, 0, 0, 0.637);
     padding: 10px;
-    font-size: 16pt;
+    font-size: 13pt;
 }
 
 #warning {
@@ -59,7 +59,7 @@ label {
     width: fit-content;
     padding-bottom: 1px;
     padding-top: 1px;
-    font-size: 14pt;
+    font-size: 12pt;
 }
 
 .question.checkbox {
@@ -68,4 +68,6 @@ label {
 
 .submit{
     margin-top: 15px;
+    padding: 3px;
+    font-size: 12pt;
 }
