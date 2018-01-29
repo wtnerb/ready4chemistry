@@ -22,9 +22,11 @@ function timer (obj, i) {
 
 function chemifyInHTML (tag, str){
     //string needs to have 'z' or '^' before sub/superscript.
-    //in case of future work, use 'z' for subscript and '^' for superscript
+    //subscripts can only be positive integers
+    //in case this is refactored later, use 'z' for subscript and '^' for superscript
     //superscript must have a sign either '+' or '-', a leading '+' will be trimmed (ie 10^+6)
-    let arr = str.replace (/=>/g, '\u2192').replace(/z(\d+)/g, '<<><$1<<><').replace(/\^([+-]?\d*[+-]?)/g, '<<><$1<<><').split('<<><');
+    let mark = '<<><~`;%@';
+    let arr = str.replace (/=>/g, '\u2192').replace(/z(\d+)/g, mark + '$1' + mark ).replace(/\^([+-]?\d*[+-]?)/g, mark + '$1' + mark ).split(mark );
     let newEl = document.createElement(tag);
     for (let i in arr){
         if (arr[i].match(/^[+-]*\d*[+-]*$/)) {
@@ -87,6 +89,7 @@ function answered (event) {
 }
 
 function randomizeOrder (arr){
+    //Inefficeint, but this application only uses small arrays. Refactor later.
     for (let i = 0; i < 2 * arr.length; i ++){
         let pair = [];
         let num  = -1
@@ -100,31 +103,6 @@ function randomizeOrder (arr){
         arr[pair[0]] = arr[pair[1]];
         arr[pair[1]] = temp;
     }
-}
-
-function formatDuration (seconds) {
-    //borrowed from my own code wars account
-    let out = [];
-    let units = [
-      {name: 'second', num: 60},
-      {name: 'minute', num: 60},
-      {name: 'hour', num: 24},
-      {name: 'day', num: 365},
-      {name: 'year', num: 4294967294},
-    ];
-    if (seconds === 0) return 'now';
-    units.forEach(x => {
-      let number = seconds%x.num;
-      let str = (number > 1) ? x.name + 's' : x.name;
-      out.push ({name: str, num: number});
-      seconds -= number;
-      seconds /= x.num;
-    });
-    return out.filter(x => x.num > 0)
-        .reverse()
-        .map(x => x.num + ' ' + x.name)
-        .join(', ')
-        .replace(/,( \d+ \w+)$/, ' and$1')
 }
 
 let qs = [];
