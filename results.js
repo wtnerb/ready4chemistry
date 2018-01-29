@@ -1,6 +1,6 @@
 'use strict'
 
-const targetTime = 20 * 60;
+const targetTime = 25 * 60;
 const numQuestions = 15;
 let result = JSON.parse(localStorage.result);
 result.forEach(timer);
@@ -16,9 +16,9 @@ function results (result){
     let summ = document.createElement('h4');
     const score = numCorrect/numQuestions;
     if (score > .87 && timeSpent < targetTime) summ.textContent = 'You are good to go!';
-    else if (score > .73) summ.textContent = 'You should do some review work before getting deep into 163.';
-    else if (score > .60) summ.textContent = 'Talk with your professor before attempting 163. A thorough review of 161 and 162 is in order.';
-    else summ.textContent = 'Consider retaking chem 161 and/or 162. Continuing to 163 is not recommended.';
+    else if (score > .73) summ.textContent = 'You should do some review work before moving forwards.';
+    else if (score > .60) summ.textContent = 'Talk with your professor before attempting to move forwards. A thorough review of chemistry fundamentals is in order.';
+    else summ.textContent = 'Consider retaking the first two quarters of chemsitry. Continuing to the third quarter is not recommended.';
     el = document.createElement('p');
     el.textContent = 'It took you ' + formatDuration(timeSpent) + ' to complete the quiz.\n' + (timeSpent < targetTime ? ' Good work!': ('That is ' + formatDuration(timeSpent - targetTime) + ' longer than it should have taken.'));
     document.getElementById('summary').appendChild(summ);
@@ -37,7 +37,7 @@ function displayLearningOpportunities (result, timeSpent) {
         target.appendChild(e); 
     }
     if (result.filter(x => !x.correct).length == 0 && targetTime < timeSpent) {
-        addLi ('Nothing! you are ready for Chem 163!', el);
+        addLi ('Nothing! you are ready for third quarter chemistry!', el);
     }
     result.filter(x => !x.correct).forEach(x => addLi (x.category, el));
     if (targetTime <= timeSpent) addLi ('Speed/fluency at solving problems.', el);
@@ -74,5 +74,5 @@ function timer (obj, i) {
     obj.time = obj.timeStamp - initial;
 }
 
-document.getElementById('name').textContent = localStorage.userName ? localStorage.userName.toUpperCase() : 'Your';
+document.getElementById('name').textContent = (localStorage.userName + '\'s') ? localStorage.userName.toUpperCase() : 'Your';
 results(result);

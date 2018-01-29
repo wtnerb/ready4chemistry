@@ -14,6 +14,7 @@ body {
 main {
     background-color: rgba(0, 0, 0, 0.637);
     padding: 10px;
+    font-size: 16pt;
 }
 
 #warning {
@@ -23,7 +24,6 @@ main {
 }
 
 #username{
-    font-size: 16pt;
     text-align: right;
     margin-right: 15%;
 }
@@ -48,14 +48,18 @@ main {
     margin-top: 10px;
 }
 
-.question.text {
-    font-size: 16pt;
-    margin-top: 0px;
-}
-
 .question.checkbox:checked + label{
     background-color: beige;
     color: black;
+}
+
+label {
+    cursor: pointer;
+    display: block;
+    width: fit-content;
+    padding-bottom: 1px;
+    padding-top: 1px;
+    font-size: 14pt;
 }
 
 .question.checkbox {
@@ -64,5 +68,4 @@ main {
 
 .submit{
     margin-top: 15px;
-    font-size: 16pt;
 }
