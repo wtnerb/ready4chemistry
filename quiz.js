@@ -26,7 +26,7 @@ function chemifyInHTML (tag, str){
     //in case this is refactored later, use 'z' for subscript and '^' for superscript
     //superscript must have a sign either '+' or '-', a leading '+' will be trimmed (ie 10^+6)
     let mark = '<<><~`;%@';
-    let arr = str.replace (/=>/g, '\u2192').replace(/z(\d+)/g, mark + '$1' + mark).replace(/\^([+-]?\d*[+-]?)/g, mark + '$1' + mark).replace(/\n/, mark + '\n' + mark).split(mark);
+    let arr = str.replace (/=>/g, '\u2192').replace(/z(\d+)/g, mark + '$1' + mark).replace(/\^([+-]?\d*[+-]?)/g, mark + '$1' + mark).replace(/\n/g, mark + '\n' + mark).split(mark);
     let newEl = document.createElement(tag);
     for (let i in arr){
         if (arr[i].match(/^[+-]?\d*[+-]?$/)) {
@@ -103,18 +103,29 @@ function randomizeOrder (arr){
     }
 }
 
-function twoDigits (){
-    return Math.floor(90 * Math.random());
-}
-
 function AnsObj (place, formula, distortions, units){
     distortions.push(1);
     let num = place * twoDigits();
     let answer = formula(num);
-    this.arr = distortions.map(x => (x * answer).toPrecision(2) + ' ' + units);
-    this.correct = answer.toPrecision(2) + ' ' + units;
-    this.n = num.toPrecision(2);
+    this.arr = distortions.map(x => rendNum(x * answer) + ' ' + units);
+    this.correct = this.arr[this.arr.length - 1];
+    this.n = rendNum(num);
+
+    function rendNum (n){
+        //toPrecision method sometimes returned exponetial notation. Example: 1200.toPrecision(2) output was 1.2e+3
+        function replacer (x,y,z){
+            let s = '' + y;
+            for (let i = y.length; i < z; i++) s += '0';
+            return s;
+        }
+        return n.toPrecision(2).replace(/\.(\d*)e\+(\d+)/, replacer);
+    }
+
+    function twoDigits (){
+        return Math.floor(90 * Math.random());
+    }
 }
+
 
 let qs = [];
 let result = [];
@@ -123,8 +134,8 @@ let iter = 0;
     let el = document.getElementById('username');
     el.textContent += localStorage.userName ? localStorage.userName.toUpperCase() : 'anonymous'.toUpperCase();
     let ans =  new AnsObj (.1, x => x / 46, [2, 1/2, 100], 'mol');
-    new Question ('How many moles are in ' + ans.n + ' of pure ethanol, CHz3CHz2OH?', ans.arr, ans.correct, 'Basic stoichiometry - molar mass');
-    ans = new AnsObj (.01, x => x / 2, [1/2, 1/4, 2], 'mol');
+    new Question ('How many moles are in ' + ans.n + ' g of pure ethanol, CHz3CHz2OH?', ans.arr, ans.correct, 'Basic stoichiometry - molar mass');
+    ans = new AnsObj (.01, x => x * 2, [1/2, 1/4, 2], 'mol');
     new Question ('How many moles of CuO can be produced from ' + ans.n + ' mol of Cuz2O in the following reaction?\n2 Cuz2O(s) + Oz2(g) => 4 CuO(s)',  ans.arr, ans.correct, 'Basic stoichiometry - chemical equations');
     new Question ('Write a balanced net ionic equation for the reaction of Naz2COz3(s) and HCl(aq).', [
         'Naz2COz3(s) + 2 HCl(aq) => 2 NaCl(aq) + Hz2O(l) + COz2(g)',
