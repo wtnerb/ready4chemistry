@@ -53,7 +53,7 @@ main {
     color: black;
 }
 
-.question label:hover{
+.question.answer:hover{
     background-color:  yellow;
     color: black;
 }
