@@ -15,11 +15,6 @@ Question.prototype.ask = function () {
     return el;
 }
 
-function timer (obj, i) {
-    let initial = result[i - 1] ? result[i - 1].timeStamp : 0;
-    obj.time = obj.timeStamp - initial;
-}
-
 function chemifyInHTML (tag, str){
     //string needs to have 'z' or '^' before sub/superscript.
     //subscripts can only be positive integers
