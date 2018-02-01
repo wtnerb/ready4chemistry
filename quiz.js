@@ -73,13 +73,19 @@ Question.prototype.answers = function () {
     return list;
 }
 
+function Result (event, question, ansIndex) {
+    this.userAnswer =  question.options[ansIndex];
+    this.timeStamp = event.timeStamp - time;
+    time = event.timeStamp;
+    this.correct = this.userAnswer == question.truth;
+    this.category = question.category;
+    result.push(this);
+    localStorage.result = JSON.stringify(result);
+}
+
 function answered (event) {
     event.preventDefault();
-    let i = document.getElementById('answers').ans.value;
-    result.push ({userAnswer: qs[iter].options[i], timeStamp: event.timeStamp});
-    result[iter].correct = result[iter].userAnswer == qs[iter].truth;
-    result[iter].category = qs[iter].category;
-    localStorage.result = JSON.stringify(result);
+    new Result (event, qs[iter], document.getElementById('answers').ans.value);
     iter++;
     if (qs[iter]) nextQuestion(qs[iter]);
     else window.location.href = 'results.html';
@@ -95,7 +101,7 @@ function randomizeOrder (arr){
             do {
                 num = Math.floor(arr.length * Math.random())
             } while (pair.includes(num))
-            pair.push (num);
+            pair.push(num);
         }
         let temp = arr[pair[0]];
         arr[pair[0]] = arr[pair[1]];
@@ -105,14 +111,14 @@ function randomizeOrder (arr){
 
 function AnsObj (place, formula, distortions, units){
     distortions.push(1);
-    let num = place * twoDigits();
-    let answer = formula(num);
+    const num = place * twoDigits();
+    const answer = formula(num);
     this.arr = distortions.map(x => rendNum(x * answer) + ' ' + units);
     this.correct = this.arr[this.arr.length - 1];
     this.n = rendNum(num);
 
     function rendNum (n){
-        //toPrecision method sometimes returned exponetial notation. Example: 1200.toPrecision(2) output was 1.2e+3
+        //toPrecision method sometimes returned exponetial notation. Example: 1200.toPrecision(3) output was 1.20e+3
         function replacer (x,y,z){
             let s = '' + y;
             for (let i = y.length; i < z; i++) s += '0';
@@ -122,7 +128,7 @@ function AnsObj (place, formula, distortions, units){
     }
 
     function twoDigits (){
-        return Math.floor(90 * Math.random());
+        return 10 + Math.floor(90 * Math.random());
     }
 }
 
@@ -130,6 +136,7 @@ function AnsObj (place, formula, distortions, units){
 let qs = [];
 let result = [];
 let iter = 0;
+let time = 0;
 (function (){
     let el = document.getElementById('username');
     el.textContent += localStorage.userName ? localStorage.userName.toUpperCase() : 'anonymous'.toUpperCase();
@@ -143,7 +150,7 @@ let iter = 0;
         'Naz2COz3(s) + 2 H^+(aq) => 2 Na^+(aq) + Hz2O(l) + COz2(g)',
         'COz3^2-(aq) + 2 H^+(aq) => Hz2O(l) + COz2(g)'], 'COz3^2-(aq) + 2 H^+(aq) => Hz2O(l) + COz2(g)', 'Ionic equations');
     ans = new AnsObj (.01, x => 4 / x, [2, 3, 4], 'ml');
-    new Question ('How many milliliters of ' + ans.n + ' M Naz2S are needed to react with 25mL of 0.32 M AgNOz3?\nNaz2S(aq) + 2 AgNOz3(aq) => 2NaNOz3(aq) + Agz2S(s)', ans.arr, ans.correct, 'Stoichiometry');
+    new Question ('How many milliliters of ' + ans.n + ' M Naz2S are needed to react with 25mL of 0.32 M AgNOz3?\nNaz2S(aq) + 2 AgNOz3(aq) => 2 NaNOz3(aq) + Agz2S(s)', ans.arr, ans.correct, 'Stoichiometry');
     ans = new AnsObj (1, x => .00131 * x, [2, 1/2, 1/3], 'g');
     new Question ('How many grams of CaClz2 are formed when ' + ans.n + ' mL of 0.00237 M 2Ca(OH)z2 reacts with excess Clz2 gas?\n2 Ca(OH)z2(aq) + 2 Clz2(g) => Ca(OCl)z2(aq) + CaClz2(aq) + 2 Hz2O(l)', ans.arr, ans.correct, 'Stoichiometry');
     new Question ('Which of the following compounds contains ionic bonds?', ['CaO', 'HF', 'NIz3', 'SiOz2'], 'CaO', 'Bond types')
