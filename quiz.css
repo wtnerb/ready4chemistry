@@ -53,6 +53,11 @@ main {
     color: black;
 }
 
+.question label:hover{
+    background-color:  yellow;
+    color: black;
+}
+
 label {
     cursor: pointer;
     display: block;
