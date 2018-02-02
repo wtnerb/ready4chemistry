@@ -6,8 +6,6 @@ let result = JSON.parse(localStorage.result);
 result.forEach(timer);
 const timeSpent = result.reduce((accum, x) => accum + Math.floor(x.time / 1000), 0);
 
-
-
 function results (result){
     let el = document.createElement('p');
     const numCorrect = result.filter(x => x.correct).reduce(x => x + 1, 0);
@@ -47,7 +45,7 @@ function displayLearningOpportunities (result, timeSpent) {
 function formatDuration (seconds) {
     //borrowed from my own code wars account
     let out = [];
-    let units = [
+    const units = [
       {name: 'second', num: 60},
       {name: 'minute', num: 60},
       {name: 'hour', num: 24},
