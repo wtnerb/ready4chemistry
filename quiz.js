@@ -69,7 +69,6 @@ Question.prototype.answers = function () {
 
 function Result (event, question, ansIndex) {
     this.userAnswer =  question.options[ansIndex];
-    console.log ('event', event.timeStamp, 'time', time)
     this.timeStamp = event.timeStamp - time;
     time = event.timeStamp;
     this.correct = this.userAnswer == question.truth;
@@ -160,7 +159,7 @@ let time = 0;
         new Question ('When 0.10 M acetic acid is combined with 0.10 M NaOH, what are the products of the resultant reaction?', ['acetic hydroxide + Na^+', 'water + sodium acetate', 'sodium acetate + OH^-'], 'water + sodium acetate', 'Acid-base reactions');
         new Question ('What is the initial concentration of OH^- in a reaction mixture when 30. mL 0.50 M NaOH is added to 10. mL of 0.20 M NaF?', ['0.20 M', '0.50 M', '0.38 M', '0.40 M'], '0.38 M', 'Units');
         if (!localStorage.quizStarted) {
-        //     localStorage.quizStarted = true;
+            localStorage.quizStarted = true;
             nextQuestion(qs[0]);
         } else {alert ('You have already taken the quiz! No retakes!')};
     })();
