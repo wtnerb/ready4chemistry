@@ -3,10 +3,9 @@
 const targetTime = 25 * 60;
 const numQuestions = 15;
 let result = JSON.parse(localStorage.result);
+const user = localStorage.userName ? localStorage.userName.toUpperCase() : 'Anonymous';
 result.forEach(timer);
-const timeSpent = result.reduce((accum, x) => accum + Math.floor(x.time / 1000), 0);
-
-
+const timeSpent = result.reduce((accum, x) => accum + Math.floor(x.timeStamp / 1000), 0);
 
 function results (result){
     let el = document.createElement('p');
@@ -47,7 +46,7 @@ function displayLearningOpportunities (result, timeSpent) {
 function formatDuration (seconds) {
     //borrowed from my own code wars account
     let out = [];
-    let units = [
+    const units = [
       {name: 'second', num: 60},
       {name: 'minute', num: 60},
       {name: 'hour', num: 24},
@@ -74,5 +73,5 @@ function timer (obj, i) {
     obj.time = obj.timeStamp - initial;
 }
 
-document.getElementById('name').textContent = (localStorage.userName + '\'s') ? localStorage.userName.toUpperCase() : 'Your';
+document.getElementById('name').textContent = 'Results for ' + user;
 results(result);
