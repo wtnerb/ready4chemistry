@@ -73,5 +73,5 @@ function timer (obj, i) {
     obj.time = obj.timeStamp - initial;
 }
 
-document.getElementById('name').textContent = 'Results for ' + user;
+document.getElementById('name').textContent = user;
 results(result);
