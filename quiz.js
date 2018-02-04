@@ -69,6 +69,7 @@ Question.prototype.answers = function () {
 
 function Result (event, question, ansIndex) {
     this.userAnswer =  question.options[ansIndex];
+    console.log ('event', event.timeStamp, 'time', time)
     this.timeStamp = event.timeStamp - time;
     time = event.timeStamp;
     this.correct = this.userAnswer == question.truth;
@@ -142,24 +143,24 @@ let time = 0;
         '2 Na^+(aq) + COz3^2-(aq) + 2 H^+(aq) + 2 Cl^-(aq) => 2Na^+(aq) + 2 Cl^-(aq) + Hz2O(l) + COz2(g)',
         'Naz2COz3(s) + 2 H^+(aq) => 2 Na^+(aq) + Hz2O(l) + COz2(g)',
         'COz3^2-(aq) + 2 H^+(aq) => Hz2O(l) + COz2(g)'], 'COz3^2-(aq) + 2 H^+(aq) => Hz2O(l) + COz2(g)', 'Ionic equations');
-    ans = new AnsObj (.01, x => 4 / x, [2, 3, 4], 'ml');
-    new Question ('How many milliliters of ' + ans.n + ' M Naz2S are needed to react with 25mL of 0.32 M AgNOz3?\n  Naz2S(aq) + 2 AgNOz3(aq) => 2 NaNOz3(aq) + Agz2S(s)', ans.arr, ans.correct, 'Stoichiometry');
-    ans = new AnsObj (1, x => .00131 * x, [2, 1/2, 1/3], 'g');
-    new Question ('How many grams of CaClz2 are formed when ' + ans.n + ' mL of 0.00237 M 2Ca(OH)z2 reacts with excess Clz2 gas?\n  2 Ca(OH)z2(aq) + 2 Clz2(g) => Ca(OCl)z2(aq) + CaClz2(aq) + 2 Hz2O(l)', ans.arr, ans.correct, 'Stoichiometry');
-    new Question ('Which of the following compounds contains ionic bonds?', ['CaO', 'HF', 'NIz3', 'SiOz2'], 'CaO', 'Bond types')
-    new Question ('A student weighed 3000. \u00B5g of sulfur in the lab. This is the same mass as', ['3.000 \u00D7 10^-6 g', '3.000 \u00D7 10^-3 kg', '3.000 \u00D7 10^+3 mg', '3.000 \u00D7 10^+6 ng'], '3.000 \u00D7 10^+6 ng', 'SI prefixes');
-    new Question ('How much heat is transferred per mole of NHz3(g) formed in the reaction shown below?\n  Nz2(g) + 3 Hz2(g) => 2 NHz3(g)    \u0394H\u00B0 = - 92.2 kJ', ['92.2 kJ', '46.1 kJ', '30.7 kJ', '15.4 kJ'], '46.1 kJ', 'Thermochemistry and Stoichiometry');
-    ans = new AnsObj (.1, x => .796 * x, [1.3, .8, 1/2], 'L');
-    new Question ('The action of some commercial drain cleaners is based on the following reaction:\n  2NaOH(s) + 2 Al(s) + 6 Hz2O(l) => 2 NaAl(OH)z4(s) + 3 Hz2(g)\nWhat is the volume of Hz2 gas formed at STP when ' + ans.n + ' g of Al reacts with excess NaOH?', ans.arr, ans.correct, 'Gas law stoichiometry');
-    ans = new AnsObj (.01, x => 87.5 / x, [0.52, 1/8, 1/1000], 'mL');
-    new Question ('What volume of ' + ans.n + ' KBr solution is needed to provide 10.5 g of KBr?', ans.arr, ans.correct, 'Basic stoichiometry');
-    new Question ('Which one of the following compounds represents a stong acid in an aqueous solution?', ['HNOz3', 'HF', 'HClOz2', 'Hz2SOz3'], 'HNOz3', 'Identifying acids');
-    new Question ('When equal volumes of 0.10 M acetic acid and 0.10 M NaOH are combined what type of reaction takes place?', ['oxidation-reduction', 'single displacement', 'neutralization', 'ion-exchange'], 'neutralization', 'Identifying reaction types');
-    new Question ('What is the formula for magnesium phosphate?', ['MgP', 'Mgz3Pz3', 'MgPOz4', 'Mgz3(POz4)z2', 'Mgz3POz4'], 'Mgz3(POz4)z2', 'Chemical naming to/from formula');
-    new Question ('When 0.10 M acetic acid is combined with 0.10 M NaOH, what are the products of the resultant reaction?', ['acetic hydroxide + Na^+', 'water + sodium acetate', 'sodium acetate + OH^-'], 'water + sodium acetate', 'Acid-base reactions');
-    new Question ('What is the initial concentration of OH^- in a reaction mixture when 30. mL 0.50 M NaOH is added to 10. mL of 0.20 M NaF?', ['0.20 M', '0.50 M', '0.38 M', '0.40 M'], '0.38 M', 'Units');
-    if (!localStorage.quizStarted) {
-        localStorage.quizStarted = true;
-        nextQuestion(qs[0]);
-    } else {alert ('You have already taken the quiz! No retakes!')};
-})();
+        ans = new AnsObj (.01, x => 4 / x, [2, 3, 4], 'ml');
+        new Question ('How many milliliters of ' + ans.n + ' M Naz2S are needed to react with 25mL of 0.32 M AgNOz3?\n  Naz2S(aq) + 2 AgNOz3(aq) => 2 NaNOz3(aq) + Agz2S(s)', ans.arr, ans.correct, 'Stoichiometry');
+        ans = new AnsObj (1, x => .00131 * x, [2, 1/2, 1/3], 'g');
+        new Question ('How many grams of CaClz2 are formed when ' + ans.n + ' mL of 0.00237 M 2Ca(OH)z2 reacts with excess Clz2 gas?\n  2 Ca(OH)z2(aq) + 2 Clz2(g) => Ca(OCl)z2(aq) + CaClz2(aq) + 2 Hz2O(l)', ans.arr, ans.correct, 'Stoichiometry');
+        new Question ('Which of the following compounds contains ionic bonds?', ['CaO', 'HF', 'NIz3', 'SiOz2'], 'CaO', 'Bond types')
+        new Question ('A student weighed 3000. \u00B5g of sulfur in the lab. This is the same mass as', ['3.000 \u00D7 10^-6 g', '3.000 \u00D7 10^-3 kg', '3.000 \u00D7 10^+3 mg', '3.000 \u00D7 10^+6 ng'], '3.000 \u00D7 10^+6 ng', 'SI prefixes');
+        new Question ('How much heat is transferred per mole of NHz3(g) formed in the reaction shown below?\n  Nz2(g) + 3 Hz2(g) => 2 NHz3(g)    \u0394H\u00B0 = - 92.2 kJ', ['92.2 kJ', '46.1 kJ', '30.7 kJ', '15.4 kJ'], '46.1 kJ', 'Thermochemistry and Stoichiometry');
+        ans = new AnsObj (.1, x => .796 * x, [1.3, .8, 1/2], 'L');
+        new Question ('The action of some commercial drain cleaners is based on the following reaction:\n  2NaOH(s) + 2 Al(s) + 6 Hz2O(l) => 2 NaAl(OH)z4(s) + 3 Hz2(g)\nWhat is the volume of Hz2 gas formed at STP when ' + ans.n + ' g of Al reacts with excess NaOH?', ans.arr, ans.correct, 'Gas law stoichiometry');
+        ans = new AnsObj (.01, x => 87.5 / x, [0.52, 1/8, 1/1000], 'mL');
+        new Question ('What volume of ' + ans.n + ' KBr solution is needed to provide 10.5 g of KBr?', ans.arr, ans.correct, 'Basic stoichiometry');
+        new Question ('Which one of the following compounds represents a stong acid in an aqueous solution?', ['HNOz3', 'HF', 'HClOz2', 'Hz2SOz3'], 'HNOz3', 'Identifying acids');
+        new Question ('When equal volumes of 0.10 M acetic acid and 0.10 M NaOH are combined what type of reaction takes place?', ['oxidation-reduction', 'single displacement', 'neutralization', 'ion-exchange'], 'neutralization', 'Identifying reaction types');
+        new Question ('What is the formula for magnesium phosphate?', ['MgP', 'Mgz3Pz3', 'MgPOz4', 'Mgz3(POz4)z2', 'Mgz3POz4'], 'Mgz3(POz4)z2', 'Chemical naming to/from formula');
+        new Question ('When 0.10 M acetic acid is combined with 0.10 M NaOH, what are the products of the resultant reaction?', ['acetic hydroxide + Na^+', 'water + sodium acetate', 'sodium acetate + OH^-'], 'water + sodium acetate', 'Acid-base reactions');
+        new Question ('What is the initial concentration of OH^- in a reaction mixture when 30. mL 0.50 M NaOH is added to 10. mL of 0.20 M NaF?', ['0.20 M', '0.50 M', '0.38 M', '0.40 M'], '0.38 M', 'Units');
+        if (!localStorage.quizStarted) {
+        //     localStorage.quizStarted = true;
+            nextQuestion(qs[0]);
+        } else {alert ('You have already taken the quiz! No retakes!')};
+    })();
