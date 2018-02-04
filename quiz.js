@@ -51,6 +51,7 @@ Question.prototype.answers = function () {
         el.id = y;
         el.value = y;
         el.classList.add('temp', 'question', 'checkbox');
+        el.required = 'required';
         let ans =  chemifyInHTML('label', x);
         ans.setAttribute('for', y);
         ans.classList.add('temp', 'question', 'answer');
