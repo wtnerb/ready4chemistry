@@ -16,18 +16,19 @@ Question.prototype.ask = function () {
 }
 
 function chemifyInHTML (tag, str){
-    //string needs to have 'z' or '^' before sub/superscript.
+    //string needs to have 'z'/'^' before sub/superscript.
     //subscripts can only be positive integers
-    //in case this is refactored later, use 'z' for subscript and '^' for superscript
-    //superscript must have a sign either '+' or '-', a leading '+' will be trimmed (ie 10^+6)
     const mark = '<<><~`;%@';
-    let arr = str.replace (/=>/g, '\u2192').replace(/z(\d+)/g, mark + '$1' + mark).replace(/\^([+-]?\d*[+-]?)/g, mark + '$1' + mark).split(mark);
+    let arr = str.replace (/=>/g, '\u2192')
+                .replace(/z(\d+)/g, mark + '$1' + mark)
+                .replace(/(\^[+-]?\d*[+-]?)/g, mark + '$1' + mark) 
+                .split(mark);
     let newEl = document.createElement(tag);
     arr.forEach (string => {
-        if (string.match(/^[+-]?\d*[+-]?$/)) {
+        if (string.match(/^\^?[+-]?\d*[+-]?$/)) {
             let el = document.createElement('span');
             el.className = string.match(/[+-]/) ? 'superscript' : 'subscript';
-            el.textContent = string.replace(/^\+(\d+)/, '$1');
+            el.textContent = string.replace(/^\^/, '').replace(/^\+(\d+)/, '$1');
             newEl.append(el);
         } else newEl.append(string);
     })
